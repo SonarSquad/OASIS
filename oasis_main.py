@@ -87,3 +87,10 @@ for i in range(0, number_of_samples):
 print(bit16_list_string[1])
 print(bit16_list_int[1])
 print(ADC_list_voltage)
+
+
+# NEXT: Live plotting of data with python: 
+# Signal processing
+# Plotting after Signal processing 
+
+
