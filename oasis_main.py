@@ -46,6 +46,7 @@ for i in range(0,number_of_samples):     # Convert integers from data_list_int t
     bit32_list_string[i] = ('{0:032b}'.format(data_list_int[i]))  
 
 bit16_list_string = [0]*number_of_samples
+bit15_list_string = [0]*number_of_samples
 for i in range(0,number_of_samples):    # Extract bit position for the 16 GPIOs of interest from 32-bit register string
     bits = bit32_list_string[i]        
 #                    ADC-bit = RaspberryPi            index = (31 - GPIO)
@@ -68,13 +69,22 @@ for i in range(0,number_of_samples):    # Extract bit position for the 16 GPIOs 
    
     # Format 16-bit string: Two's complement,  MSB -> LSB  
     bit16_list_string[i] = (bit15 + bit14 + bit13 + bit12 + bit11 + bit10 + bit9 + bit8 + bit7 + bit6 + bit5 + bit4 + bit3 + bit2 + bit1 + bit0)
-
-bit16_list_int = [0]*number_of_samples
-for i in range(0, number_of_samples):      
-    bit16_list_int[i] = int(bit16_list_string[i],2)     # Convert bit string back to integer 
+    # 15-bit string used for converting Two's complemets: 
+    bit15_list_string[i] = (bit14 + bit13 + bit12 + bit11 + bit10 + bit9 + bit8 + bit7 + bit6 + bit5 + bit4 + bit3 + bit2 + bit1 + bit0)
     
-    if bit16_list_int[i] > 32768:                       # Convert from two's complement   2**15 = 32768
-        bit16_list_int[i] = 32768 - bit16_list_int[i]
+    
+    
+bit16_list_int = [0]*number_of_samples                  # Convert 16.bit string back to integer 
+for i in range(0, number_of_samples):                   # Preallocate list for integer values      
+    bit16_list_int[i] = int(bit16_list_string[i],2)  
+
+bit15_list_int = [0]*number_of_samples                  # Convert 15-bit string back to integer 
+for i in range(0, number_of_samples):                   # Preallocate list for integer values      
+    bit15_list_int[i] = int(bit15_list_string[i],2) 
+
+# Convert from two's complement to decimal   (2**15)-1 = 32767:  
+if bit16_list_int[i] > 32767:      
+    bit16_list_int[i] = -32768 + bit15_list_int[i]
 
 ADC_list_voltage = [0]*number_of_samples                # Convert ADC bit-data to voltage reading
 for i in range(0, number_of_samples):
