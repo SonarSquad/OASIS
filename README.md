@@ -8,3 +8,7 @@ Objectives:
 2. Getting raw-data out (Bit-stream from ADC over SPI protocol).
 3. Manipulating raw data in order to get easy interpretable voltage values.   
 4. Signal processing. 
+
+
+
+oasis_read_ADC_parallel.c Used to get raw ADC readings
