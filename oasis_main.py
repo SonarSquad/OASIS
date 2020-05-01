@@ -76,7 +76,7 @@ for i in range(0, number_of_samples):                   # Preallocate list for i
 # Convert from two's complement to decimal   (2**15)-1 = 32767:  
 for i in range(0, number of samples):
      if bit16_list_int[i] > 32767:  # This means that MSB in 16-bit string = 1 and we have a negative value. 
-          bit16_list_int[i] = (bit16_list_int[i] - 32768)  
+          bit16_list_int[i] = -(bit16_list_int[i] - 32768)  
     
 # Possible integer-values in the bit16_list_int list is now from -32768 to +32767. 
 
