@@ -92,7 +92,7 @@ while True:
 
     ADC_list_voltage = [0]*number_of_samples                # Convert ADC bit-data to voltage reading
     for i in range(0, number_of_samples):
-        ADC_list_voltage[i] = (2*Vref) * (bit16_list_int[i] / (2**15))
+        ADC_list_voltage[i] = (Vref) * (bit16_list_int[i] / (2**15))
     
     
     #time.sleep(1)
