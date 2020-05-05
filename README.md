@@ -1,14 +1,16 @@
 # oasis-python
 
 
-Here goes the different python scripts for the OASIS bachelor project
+The main python script for the OASIS bachelor project
+System based on RaspberryPi 4 - 4GB RAM
 
-Objectives: 
-1. Start the sonar system - signal from Raspberry Pi facilitates initiation of MCU.
-2. Getting raw-data out (Bit-stream from ADC over SPI protocol).
-3. Manipulating raw data in order to get easy interpretable voltage values.   
-4. Signal processing. 
+OBJECTIVES: 
+1. Start the sonar system, transducer transmit chirp signal at preset frequency. 
+    - Pulse generaton is done on sepparate microcontroller (MCU) 
+    
+2. Switch into "receive mode" - receive and sample incomming returning echo. 
+
+3. Plotting and light processing of received signal.   
 
 
 
-oasis_read_ADC_parallel.c Used to get raw ADC readings
