@@ -2,7 +2,6 @@
 
 
 The main python script for the OASIS bachelor project
-System based on RaspberryPi 4 - 4GB RAM
 
 OBJECTIVES: 
 1. Start the sonar system, transducer transmit chirp signal at preset frequency. 
