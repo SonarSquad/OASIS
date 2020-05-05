@@ -9,7 +9,10 @@ OBJECTIVES:
     
 2. Switch into "receive mode" - receive and sample incomming returning echo. 
 
-3. Plotting and light processing of received signal.   
+3. Plotting and light processing of received signal.
+    - FFT
+    - Filtering
+    - Envelope detection
 
 
 
