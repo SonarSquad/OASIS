@@ -88,20 +88,15 @@ while start == 1:
         if bit16_list_int[i] > 32767:                       # Convert from two's complement   2**15-1 = 32767
             bit16_list_int[i] = -65536 + bit16_list_int[i]
             #bit16_list_int[i] = -(bit16_list_int[i] - 32768)   
-    
-    #for i in range(0,5):
-    #   print(bit16_list_int[i])
-
+		
 
     ADC_list_voltage = [0]*number_of_samples                # Convert ADC bit-data to voltage reading
     for i in range(0, number_of_samples):
         ADC_list_voltage[i] = (Vref) * (bit16_list_int[i] / (2**15))
     
-    
     #time.sleep(1)
     # The list: ADC_list_voltage now contains all samples represented as voltage  
-    #print(bit16_list_string[1])
-    #print(bit16_list_int[1])
+  
 
     '''
     for i in range(0,5):
@@ -109,9 +104,11 @@ while start == 1:
     '''
     # ----- Plotting routine:
     
-    with open("sdfsdf.txt", "w+"):
-        file_object.write(ADC_list_voltage)
+    output_file = open("output name here.txt", "w+")
+    output_file.write(str(ADC_list_voltage))
+    output_file.close()     
     
+
     plt.style.use('ggplot')
     sample_list = range(0,number_of_samples)
     plt.plot(sample_list, ADC_list_voltage, color='red', linewidth=1)
