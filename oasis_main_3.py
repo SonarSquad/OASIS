@@ -70,9 +70,12 @@ def get_ADC_data():
         bit14 = bits[18]   # bit 14 = GPIO 13       bit32_list_string  index 18 
         bit15 = bits[25]   # bit 15 = GPIO 6        bit32_list_string  index 25 
 
-        # Format 16-bit string: MSB -> LSB, Two's complement 
+        # Format 16-bit string: bit16_list_string[0] = MSB, bit16_list_string[15] = LSB
+	# Two's complement representation 
         bit16_list_string[i] = (bit15 + bit14 + bit13 + bit12 + bit11 + bit10 + bit9 + bit8 + bit7 + bit6 + bit5 + bit4 + bit3 + bit2 + bit1 + bit0)
     
+
+
     bit16_list_int = [0]*number_of_samples
     for i in range(0, number_of_samples):                   # Convert bit string back to integer 
         bit16_list_int[i] = int(bit16_list_string[i],2)     
@@ -80,20 +83,17 @@ def get_ADC_data():
         if bit16_list_int[i] > 32767:                       # Convert from two's complement   2**15-1 = 32767
             bit16_list_int[i] = -65536 + bit16_list_int[i]
 
-
     ADC_list_voltage = [0]*number_of_samples                # Convert ADC bit-data to voltage reading
     for i in range(0, number_of_samples):
         ADC_list_voltage[i] = (Vref) * (bit16_list_int[i] / (2**15))
     
     # The list: ADC_list_voltage now contains all samples presented as voltage.   
     return ADC_list_voltage
-
 # ---------------------------------END FUNCTION --------------------------------------------------------------------------------
 
 
-
 #--------------------------------------SETUP --------------------------------------------------
-# IN ORDER TO COMPILE THE c DRIVER RUN THE FOLLOWING IN TERMINAL:
+# IN ORDER TO COMPILE THE C DRIVER RUN THE FOLLOWING IN TERMINAL:
 # gcc oasis_read_ADC_parallel.c -o  oasis_read_ADC_parallel
 
 # ----------------------------------- MAIN LOOP ------------------------------------------------
@@ -105,14 +105,14 @@ def get_ADC_data():
 # BYTE = connect to LOW      (GND)
 # RESET = connect to HIGH   (3.3v)
 # PD2 = connect to HIGH     (3.3v) 
-
+sampling_frequency = 1700000
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(1, GPIO.OUT) # GPIO 0 used for communication Raspberry --> MCU 
+GPIO.setup(0, GPIO.IN)  # GPIO 0 used for communication MCU --> Raspberry
 RUN = True 
-while RUN == True:
-    sampling_frequency = 1700000
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(1, GPIO.OUT) # GPIO 0 used for communication Raspberry --> MCU 
-    GPIO.setup(0, GPIO.IN)  # GPIO 0 used for communication MCU --> Raspberry
 
+while RUN == True:
+	
     GPIO.output(1,1) # Pulse pin 1 to in order to trigger MCU to start chirping. 
     GPIO.output(1,0) 
 	
