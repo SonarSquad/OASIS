@@ -1,26 +1,25 @@
 # ---------- For Plotting ---------------------
-import math
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import ion, show
 # ---------- Other imports ------------------
+import math
 from subprocess import Popen, PIPE
 from scipy.fft import fft
 import time
 import RPi.GPIO as GPIO
 
 
-
-
 # --------------------- FUNCTIONS ------------------------------------------------------------------------------------------------------
 
 def get_ADC_data(): 
-    # This function returns a list with 1.7 million voltage readings taken at 1.7MHz sampling frequency.   
+    # This function initiates a process and 
+    # returns a list with 1.7 million voltage readings taken at 1.7MHz sampling frequency.
+    # The compiled and executable C-code needs to be in the same directory as this python file.  
 
     counter = 0
     Vref = 4.096 # Reference voltage used in the ADC. 4.096 for internal voltage in ADS8422 
 
-    #start a subprocess: call the C code and let it run to do a parallel ADC read. 
-
+    # Start a subprocess: call the C code and let it run to do a parallel ADC read. 
     c_process = Popen("./oasis_read_ADC_parallel", stdin = PIPE, stdout = PIPE)
     OUTS, errs = c_process.communicate()
 
@@ -98,15 +97,15 @@ def get_ADC_data():
 # gcc oasis_read_ADC_parallel.c -o  oasis_read_ADC_parallel
 
 # ----------------------------------- MAIN LOOP ------------------------------------------------
-
-# ADC-PCB --> RaspberryPi
+# Following connections are made between the ADS8422 ADC Board and RaspberryPi: 
 # CONVST = GPIO 4
 # BUSY = GPIO 3
 # RD = GPIO 17 
-# CS = connect to LOW 
-# BYTE = connect to LOW 
-# RESET = connect to HIGH 
-# PD2 = connect to HIGH 
+# CS = connect to LOW        (GND)
+# BYTE = connect to LOW      (GND)
+# RESET = connect to HIGH   (3.3v)
+# PD2 = connect to HIGH     (3.3v) 
+
 RUN = True 
 while RUN == True:
     sampling_frequency = 1700000
@@ -114,18 +113,16 @@ while RUN == True:
     GPIO.setup(1, GPIO.OUT) # GPIO 0 used for communication Raspberry --> MCU 
     GPIO.setup(0, GPIO.IN)  # GPIO 0 used for communication MCU --> Raspberry
 
-    GPIO.output(1,1) # Set pin 1 to HIGH in order to trigger MCU to start chirping. 
-
+    GPIO.output(1,1) # Pulse pin 1 to in order to trigger MCU to start chirping. 
+    GPIO.output(1,0) 
+	
     #while GPIO.input(0) == HIGH: 
         # Wait for MCU to pull it's interface wire low. LOW signals indicates chirping done.  
 
     # Sample returning echo signal. 1.7 million samples are taken with a sampling frequency of 1.7MHz 
-    # total sampling time equals 1 second. 
-    
-    voltage_list = get_ADC_data()
+    voltage_list = get_ADC_data() 
+	
     number_of_samples = len(voltage_list)
-
-    GPIO.output(1,0) # Set pin 1 to LOW 
 
     command_FFT = input("Plot FFT?  Y/N: ")
     if command_FFT == "Y": # set up and plot FFT: 
@@ -134,7 +131,7 @@ while RUN == True:
         x_vect = [0] * N    # Set up a frequency vector for the x-axis of plot       
         for i in range(0, N):
 	        x_vect[i] = (i * (sampling_frequency/N))/1000   # Divide by 1000 to get KHz along X axis  
-        #
+        
 
         fft_data = fft(voltage_list, N) # Take the FFT of the original voltage data
         FFT_abs = abs(fft_data) # Absolute value 
