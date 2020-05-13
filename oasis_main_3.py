@@ -1,12 +1,15 @@
-# ---------- For Plotting ---------------------
+
+
+# ---------- Imports for Plotting ------------------------------------
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import ion, show
-# ---------- Other imports ------------------
+
+# ---------- Other imports -------------------------------------------
 import math
-from subprocess import Popen, PIPE
-from scipy.fft import fft
 import time
 import RPi.GPIO as GPIO
+from subprocess import Popen, PIPE
+from scipy.fft import fft
 
 
 # --------------------- FUNCTIONS ------------------------------------------------------------------------------------------------------
@@ -14,29 +17,28 @@ import RPi.GPIO as GPIO
 def get_ADC_data(): 
     # This function initiates a process and 
     # returns a list with 1.7 million voltage readings taken at 1.7MHz sampling frequency.
+    # The sampling frequency and number of samples taken can adjusted in the C-driver (max = 1.7MHz @ 2M samples)
     # The compiled and executable C-code needs to be in the same directory as this python file.  
 
-    counter = 0
-    Vref = 4.096 # Reference voltage used in the ADC. 4.096 for internal voltage in ADS8422 
+    Vref = 4.096 # Reference voltage used in the ADC. 4.096 for internal reference ADS8422 
 
     # Start a subprocess: call the C code and let it run to do a parallel ADC read. 
     c_process = Popen("./oasis_read_ADC_parallel", stdin = PIPE, stdout = PIPE)
     OUTS, errs = c_process.communicate()
 
     """
-    ---------------------------------------------------------------------------------------------------------------------------------
+    -----------------------------------------------------------------------------------------------------------------------------------------
     Now the variable "OUTS" (bytes object) contains a list with the states of the GPIO register after each ADC sample.
     - Each entry in the list is an integer. 
     - Each integer represents a 32-bit register read.
-    ------------------------------------------------------------------------------------------------------------------------------------
+    -----------------------------------------------------------------------------------------------------------------------------------------
     # The rest of this function converts the list of integers received from the C code into a list with voltages. 
-     ------------------------------------------------------------------------------------------------------------------------------------
-    1. Sort all the integers into a list.
+     ----------------------------------------------------------------------------------------------------------------------------------------
     2. Convert integers to 32-bit bit-string.
-    3. Manipulate string in order to extract the bits representing the GPIOs physically connected to the data lines of the parallel ADC.
+    3. Manipulate string in order to extract the bits representing the GPIOs physically connected to the data lines of ADC.
     4. Sort the manipulated bits so that they have the right place in a 16-bit string. 
     5. Convert the 16-bit string to voltage reading - remember 16-bit value is two's complement.   
-    ----------------------------------------------------------------------------------------------------------------------------------
+    -----------------------------------------------------------------------------------------------------------------------------------------
     """    
 
     data = OUTS.decode('UTF-8')               # Decode outs from byte-object and make a python string
@@ -71,7 +73,7 @@ def get_ADC_data():
         bit15 = bits[25]   # bit 15 = GPIO 6        bit32_list_string  index 25 
 
         # Format 16-bit string: bit16_list_string[0] = MSB, bit16_list_string[15] = LSB
-	# Two's complement representation 
+	    # Two's complement representation 
         bit16_list_string[i] = (bit15 + bit14 + bit13 + bit12 + bit11 + bit10 + bit9 + bit8 + bit7 + bit6 + bit5 + bit4 + bit3 + bit2 + bit1 + bit0)
     
 
@@ -89,14 +91,14 @@ def get_ADC_data():
     
     # The list: ADC_list_voltage now contains all samples presented as voltage.   
     return ADC_list_voltage
-# ---------------------------------END FUNCTION --------------------------------------------------------------------------------
 
+# --------------------------------- END FUNCTION ------------------------------------------------------------------------------------------
 
-#--------------------------------------SETUP --------------------------------------------------
-# IN ORDER TO COMPILE THE C DRIVER RUN THE FOLLOWING IN TERMINAL:
+#--------------------------------------SETUP ----------------------------------------------------------------------------------------------
+
+# In order to compile the C driver run the following in terminal:
 # gcc oasis_read_ADC_parallel.c -o  oasis_read_ADC_parallel
 
-# ----------------------------------- MAIN LOOP ------------------------------------------------
 # Following connections are made between the ADS8422 ADC Board and RaspberryPi: 
 # CONVST = GPIO 4
 # BUSY = GPIO 3
@@ -105,27 +107,29 @@ def get_ADC_data():
 # BYTE = connect to LOW      (GND)
 # RESET = connect to HIGH   (3.3v)
 # PD2 = connect to HIGH     (3.3v) 
+# Connect GPIO 1 and GPIO 0 to the MCU 
+
 sampling_frequency = 1700000
+
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(1, GPIO.OUT) # GPIO 0 used for communication Raspberry --> MCU 
+GPIO.setup(1, GPIO.OUT) # GPIO 1 used for communication Raspberry --> MCU 
 GPIO.setup(0, GPIO.IN)  # GPIO 0 used for communication MCU --> Raspberry
 RUN = True 
 
+# ----------------------------------- MAIN LOOP -------------------------------------------------------------------------------------------
 while RUN == True:
 	
     GPIO.output(1,1) # Pulse pin 1 to in order to trigger MCU to start chirping. 
     GPIO.output(1,0) 
 	
-    #while GPIO.input(0) == HIGH: 
+    while GPIO.input(0) == HIGH: 
         # Wait for MCU to pull it's interface wire low. LOW signals indicates chirping done.  
-
-    # Sample returning echo signal. 1.7 million samples are taken with a sampling frequency of 1.7MHz 
-    voltage_list = get_ADC_data() 
-	
+ 
+    voltage_list = get_ADC_data() # start sampling the returning echo signal
     number_of_samples = len(voltage_list)
 
-    command_FFT = input("Plot FFT?  Y/N: ")
-    if command_FFT == "Y": # set up and plot FFT: 
+    command_FFT = input("Plot FFT?  Y/N: ") # User input through terminal 
+    if command_FFT == "Y": # Set up and plot FFT: 
         N = number_of_samples
         
         x_vect = [0] * N    # Set up a frequency vector for the x-axis of plot       
@@ -135,8 +139,8 @@ while RUN == True:
 
         fft_data = fft(voltage_list, N) # Take the FFT of the original voltage data
         FFT_abs = abs(fft_data) # Absolute value 
-        FFT_scaled = ((FFT_abs / N) * 2)  # Scaled and multiplied by 2 - only one mirrored part valid.
-        ion()
+        FFT_scaled = ((FFT_abs / N) * 2)  # Scaled and multiplied by 2 - only one mirrored part valid in FFT.
+        ion() 
         plt.figure(1)
         plt.style.use('seaborn-whitegrid')
         plt.plot(x_vect, FFT_scaled, color ='red', linewidth=1)
@@ -147,10 +151,10 @@ while RUN == True:
         plt.show() 
         
     
-    command_PLOT = input("Plot voltage vs. time?  Y/N: ")
-    if command_PLOT == "Y":
-        samples = [0]*number_of_samples
-        for i in range(0, number_of_samples):
+    command_PLOT = input("Plot voltage vs. time?  Y/N: ") # User input through terminal 
+    if command_PLOT == "Y":                               # Plot data                  
+        samples = [0]*number_of_samples 
+        for i in range(0, number_of_samples): # set up sample number vector for x-axis 
             samples[i] = i
         ion()
         plt.figure(2)
@@ -163,8 +167,8 @@ while RUN == True:
         plt.show()
 
 
-    command_SAVE = input("Save voltage samples to .txt file? Y/N: ") 
-    if command_SAVE == "Y": # Run with logging 
+    command_SAVE = input("Save voltage samples to .txt file? Y/N: ") # User input through terminal 
+    if command_SAVE == "Y":                                          # Save sampled data to a .txt file 
         file_name_input_str = input("Insert filename: ")
         file_name_str = file_name_input_str + ".txt"
         
@@ -172,5 +176,5 @@ while RUN == True:
         file_object.write(str(voltage_list))
         print("SUCCESS! Sampling-session saved as:", file_name_str)
 
-     	
     RUN = False 
+

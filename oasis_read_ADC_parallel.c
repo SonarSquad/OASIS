@@ -1,7 +1,6 @@
 
 
-// OASIS Parallel ADC SW test 0.2
-//Author: Tor K. Gjerde
+// OASIS ADC driver for ADS8422 Texas Instrument, parallel interface. 
 
 #include "RPI4.h" 
 #include <stdio.h>
@@ -19,7 +18,7 @@ int map_peripheral(struct bcm2835_peripheral *p)
 {
    // Open /dev/mem
    if ((p->mem_fd = open("/dev/mem", O_RDWR|O_SYNC) ) < 0) {
-      printf("Failed to open /dev/mem, try checking permissions.\n");
+      printf("Failed to open /dev/mem, check permissions.\n");
       return -1;
    }
 
@@ -48,39 +47,18 @@ void unmap_peripheral(struct bcm2835_peripheral *p) {
     close(p->mem_fd);
 }
 
-/*
-   Need go gain access to the memory of the BCM2835 in order to set specific registers that 
-   in turn is used to interface with the GPIOs 
-
-   the header file contains C declarations and macros definitions.
-   Macros a fragment of code which has been given a name.
-   wheneer the name is used, it is replaced by the contents of the macro. 
-
-   for every peripheral we define a struct - which will contain the
-   information about the location of the registers.
-   Then we initialize it with the map_peripheral() function. 
-
- WHAT IS A STRUCT? 
- Its a composite data type declaration that defines a physically grouped 
- list of variables under one name in a block of memory, allowing the different variables to be 
- accessed via a single pointer.
-
-  */
-
-// -------------------------------------- MAIN -----------------------------------------
+// -------------------------------------- MAIN -------------------------------------------------------
 int main()
 {
 	if(map_peripheral(&gpio) == -1)
 	{
-		printf("failed to map the physical GPIO registers into the virtual memory space.\n");
+		printf(" ERROR! failed to map physical GPIO registers into the virtual memory.\n");
 		return -1; 
 	}
 
 	/*
    Define GPIOs as input 
-   GPIOs used as laid out on the parallel ADC circuit board:
-
-   ADS8422 -> Raspberry Pi 
+   GPIOs used as laid out on the parallel ADC circuit board: ADS8422 -> Raspberry Pi 
    bit 0 =  GPIO 14     32-bit-string index 15
    bit 1 =  GPIO 15     32-bit-string index 16
    bit 2 =  GPIO 18     32-bit-string index 19
@@ -97,8 +75,8 @@ int main()
    bit 13 = GPIO 19     32-bit-string index 20
    bit 14 = GPIO 13     32-bit-string index 14
    bit 15 = GPIO 6      32-bit-string index 7
-   
    */
+
    INP_GPIO(6); 
    INP_GPIO(7);
    INP_GPIO(8);
@@ -134,23 +112,18 @@ int main()
    int data_array[1700000] = {}; 
    int counter = 0; 
    // Disable IRQ  
-   // Local_irq_disable()  <-- This would needs to be done with a sepparate kernel module 
-   // Local_fiq_disable()  <-- Needs to be done with a sepparate kernel module 
+   // Local_irq_disable()  <-- This would need to be done with a sepparate kernel module  
+   // Local_fiq_disable()  <-- This would need to be done with a sepparate kernel module 
 
 	while(counter < nbr_of_samples)
 	 {
       GPIO_CLR = 1 << CONVST; 	// Reset CONVST to LOW - initiate adc conversion
       GPIO_CLR = 1 << RD;        // Bring synchronization pin RD low to make parallel data out available 
 
-     
-     //_Bool BUSY_state = GPIO_READ_PIN(BUSY);
-     //printf("%d\n",BUSY_state);
-      //while(GPIO_READ_PIN(3) == 0){ //forces wait intil GPIO(3) is set high 
-      //}
       while(GPIO_READ_PIN(3) == 1){ 
         // printf("entered BUSY loop");
-         // while the BUSY pin is high wait for ADC to finish conversion and change apears on BUSY pin
-         //BUSY_state = GPIO_READ_PIN(3);
+        // while the BUSY pin is high wait for ADC to finish conversion and change apears on BUSY pin
+        //BUSY_state = GPIO_READ_PIN(3);
       }
 
       data_array[counter] = GPIO_READ; // read the whole 32-bit GPIO register (includes ADC output)
@@ -176,4 +149,8 @@ int main()
 
     
 	return 0; 
+
+
+
+
 }
