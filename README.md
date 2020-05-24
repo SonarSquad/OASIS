@@ -22,10 +22,10 @@ The full OASIS - A low-cost modular echosounder thesis report should also be red
 
 
 **OBJECTIVES:** 
-1. Start the sonar system, transducer transmit chirp signal at preset frequency. 
+1. Start the sonar system, transducer transmit a pulse at preset frequency (200kHz). 
     - Pulse generaton is done on sepparate microcontroller (MCU).  
     
-2. Switch into "receive mode" - receive and sample incomming returning echo. 
+2. Switch into "receive mode" - receive and sample incomming returning echo. (switch not developed) 
 
 3. Plotting and light processing of received signal.
     - FFT: Frequency
