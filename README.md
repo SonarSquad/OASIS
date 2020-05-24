@@ -30,7 +30,7 @@ The full OASIS - A low-cost modular echosounder thesis report should also be red
     - Plotting: Time vs. voltage 
     
 **CONTACT:** 
-Martin Ericssen: 
+- Martin Ericssen: 
 - Tor K. Gjerde - tlf: 46934462 email: torkg@stud.ntnu.no
 - Torbjørn: 
 - Einar Avdem: 
