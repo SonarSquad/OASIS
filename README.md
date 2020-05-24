@@ -3,10 +3,10 @@ Project folder for code, circuit schematics and design of the OASIS prototype sy
 The full thesis report should also be red for a better understanding if further development of the system are to be investigated.  
 
 **HARDWARE modules:**
-- LNA - Low noise amplifier. 
-- MCU - ATmega4809 Full-bridge module.
-- ADC - ADS8422 board Analog to Digital converter.  
-- Raspberry pi 4 model B (4GB RAM).
+- LNA board - Low noise amplifier. (designed and tested)
+- MCU board - ATmega4809 Full-bridge module. (designed and tested)
+- ADC board - ADS8422 board Analog to Digital converter. (designed and tested)
+- Raspberry pi 4 model B (4GB RAM). (bought and tested)
 
 ![Screenshot](full_module_comp.JPG)
 ![Screenshot](RX_Main_Echo.png)
