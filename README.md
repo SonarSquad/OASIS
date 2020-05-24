@@ -19,7 +19,7 @@ The full OASIS - A low-cost modular echosounder thesis report should also be red
 
 ![Screenshot](full_module_comp.JPG)
 
-**OBJECTIVES:** 
+**OASIS Prototype achievements:** 
 1. Start the sonar system, transducer transmit a pulse at preset frequency (200kHz). 
     - Pulse generaton is done on sepparate microcontroller (MCU).  
     
@@ -28,5 +28,11 @@ The full OASIS - A low-cost modular echosounder thesis report should also be red
 3. Plotting and light processing of received signal.
     - FFT: Frequency
     - Plotting: Time vs. voltage 
+    
+**CONTACT:** 
+Martin Ericssen: 
+Tor K. Gjerde - tlf: 46934462 email: torkg@stud.ntnu.no
+Torbjørs: 
+Einar Avdem: 
 
 
