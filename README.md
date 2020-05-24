@@ -18,8 +18,6 @@ The full OASIS - A low-cost modular echosounder thesis report should also be red
 - Raspberry pi 4 model B (4GB RAM). (bought and tested)
 
 ![Screenshot](full_module_comp.JPG)
-![Screenshot](RX_Main_Echo.png)
-
 
 **OBJECTIVES:** 
 1. Start the sonar system, transducer transmit a pulse at preset frequency (200kHz). 
