@@ -1,6 +1,6 @@
 # OASIS
-Project folder for code, circuit schematics and design of the OASIS prototype system.
-The full thesis report should also be red for a better understanding if further development of the system are to be investigated.  
+Contains the complete code, circuit schematics and design of the OASIS prototype system.
+The full OASIS - A low-cost modular echosounder thesis report should also be red for a better understanding if further development of the system are to be investigated.  
 
 **HARDWARE modules:**
 - LNA board - Low noise amplifier. (designed and tested)
