@@ -1,5 +1,5 @@
 # OASIS
-Contains the complete code, circuit schematics and design of the OASIS prototype system.
+Contains the complete code, circuit schematics and designs for the OASIS prototype system.
 The full OASIS - A low-cost modular echosounder thesis report should also be red for a better understanding if further development of the system are to be investigated.  
 
 
