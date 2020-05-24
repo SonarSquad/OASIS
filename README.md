@@ -35,9 +35,9 @@ The full OASIS - A low-cost modular echosounder thesis report should also be red
 ![Screenshot](sampled_ADC_data.png)
 ________________________________________________________________________________________________________
 **CONTACT:** 
-- Martin Ericsson: 
-- Tor K. Gjerde - tlf: 46934462 email: torkg@stud.ntnu.no
-- Torbjørn Willson: 
-- Einar Avdem: 
+- Martin Ericsson - tlf: 92649342, email: martincse94@gmail.com 
+- Tor K. Gjerde - tlf: 46934462, email: torgjerde.nor@gmail.com
+- Torbjørn Willson: tlf: 46810798, email: torbjorw@ntnu.no
+- Einar Avdem - tlf: 98813120, email: einarav@stud.ntnu.no 
 
 
