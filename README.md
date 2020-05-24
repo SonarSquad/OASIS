@@ -20,7 +20,7 @@ The full OASIS - A low-cost modular echosounder thesis report should also be red
 ![Screenshot](full_module_comp.JPG)
 
 **OASIS Prototype achievements:** 
-1. Start the sonar system, transducer transmit a pulse at preset frequency (200kHz). 
+1. System startup: Transducer transmit a pulse at preset frequency (200kHz). 
     - Pulse generaton is done on sepparate microcontroller (MCU).  
     
 2. Switch into "receive mode" - receive and sample incomming returning echo. (switch not developed) 
