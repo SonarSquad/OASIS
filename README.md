@@ -4,11 +4,12 @@ The full OASIS - A low-cost modular echosounder thesis report should also be red
 
 
 **CONTENT: folder and content**
-- LNA_Rev3: PCB design files for the LNA board. 
-- MCU_ATmega4809: Code for waveform-generation on the ATmega4809. 
-- Oasis_ADC_PCB: PCB design files for the ADC board.
+- LNA_Rev3: PCB design files for the LNA board (ALTIUM).
+- Oasis_ADC_PCB: PCB design files and gerbers for the ADC board (KICAD).
+- Oasis_MCU_bridge_PCB: PCB design files and gerbers for MCU board (KICAD).
 - Python code and drivers: Main python script and C- code drivers for the OASIS system
-- SPI_test_alternative_ADC: Some code for setting up SPI communication on the Raspberry Pi.  
+- MCU_ATmega4809: Code for waveform-generation on the ATmega4809. 
+- SPI_test_alternative_ADC: Example code for setting up SPI communication on the Raspberry Pi 4 (not used in OASIS prototype).  
 
 
 **HARDWARE modules:**
