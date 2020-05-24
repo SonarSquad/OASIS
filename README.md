@@ -20,15 +20,16 @@ The full OASIS - A low-cost modular echosounder thesis report should also be red
 ![Screenshot](full_module_comp.JPG)
 
 **OASIS Prototype achievements:** 
-1. System startup: Transducer transmit a pulse at preset frequency (200kHz). 
+1. System startup, Transmit a pulse at preset frequency (200kHz).
     - Pulse generaton is done on sepparate microcontroller (MCU).  
     
-2. Switch into "receive mode" - receive and sample incomming returning echo. (switch not developed) 
+2. Sample returning echo, (switch not developed yet - two transducers used while testing). 
+    - Receive and sample incomming returning echo. Sampling rate = 1.7 Msps 
 
 3. Plotting and light processing of received signal.
-    - FFT: Frequency
-    - Plotting: Time vs. voltage 
-    
+    - Plot: FFT
+    - Plot: Time vs. voltage 
+________________________________________________________________________________________________________
 **CONTACT:** 
 - Martin Ericsson: 
 - Tor K. Gjerde - tlf: 46934462 email: torkg@stud.ntnu.no
