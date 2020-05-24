@@ -31,6 +31,8 @@ The full OASIS - A low-cost modular echosounder thesis report should also be red
 4. Plotting and light processing of received signal.
     - Plot: FFT. 
     - Plot: Time vs. voltage. 
+    
+![Screenshot](sampled_ADC_data.png)
 ________________________________________________________________________________________________________
 **CONTACT:** 
 - Martin Ericsson: 
