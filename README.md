@@ -1,16 +1,15 @@
 # OASIS
-Project folder for code, circuit schematics and design of the OASIS prototype system
+Project folder for code, circuit schematics and design of the OASIS prototype system.
+The full thesis report should also be red for a better understanding if further development of the system are to be investigated.  
 
-![Screenshot](full_module_comp.JPG)
-![Screenshot](RX_Main_Echo.png)
-
-
-
-**HARDWARE modules used:**
+**HARDWARE modules:**
 - LNA - Low noise amplifier. 
 - MCU - ATmega4809 Full-bridge module.
 - ADC - ADS8422 board Analog to Digital converter.  
 - Raspberry pi 4 model B (4GB RAM).
+
+![Screenshot](full_module_comp.JPG)
+![Screenshot](RX_Main_Echo.png)
 
 
 **OBJECTIVES:** 
@@ -24,4 +23,8 @@ Project folder for code, circuit schematics and design of the OASIS prototype sy
     - Plotting: Time vs. voltage 
 
 
+**CONTENT:**
+- Working OASIS python script for Raspberry pi 4 (4GB). 
+- MCU C code for wave generation on the ATmega4809. 
+- 
 
