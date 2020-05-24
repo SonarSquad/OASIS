@@ -37,7 +37,7 @@ ________________________________________________________________________________
 **CONTACT:** 
 - Martin Ericsson: 
 - Tor K. Gjerde - tlf: 46934462 email: torkg@stud.ntnu.no
-- Torbjørn: 
+- Torbjørn Willson: 
 - Einar Avdem: 
 
 
