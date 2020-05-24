@@ -3,7 +3,7 @@ Contains the complete code, circuit schematics and design of the OASIS prototype
 The full OASIS - A low-cost modular echosounder thesis report should also be red for a better understanding if further development of the system are to be investigated.  
 
 
-**CONTENT: Folder and content**
+**CONTENT: folder and content**
 - LNA_Rev3: PCB design files for the LNA board. 
 - MCU_ATmega4809: Code for waveform-generation on the ATmega4809. 
 - Oasis_ADC_PCB: PCB design files for the ADC board.
