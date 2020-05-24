@@ -4,8 +4,11 @@ The full OASIS - A low-cost modular echosounder thesis report should also be red
 
 
 **CONTENT:**
-- Working OASIS python script for Raspberry pi 4 (4GB). 
-- MCU C code for wave generation on the ATmega4809. 
+- LNA_Rev3: PCB design files for the LNA board. 
+- MCU_ATmega4809: Code for waveform-generation on the ATmega4809. 
+- Oasis_ADC_PCB: PCB design files for the ADC board.
+- Python code and drivers: Main python script and C- code drivers for the OASIS system
+- SPI_test_alternative_ADC: Some code for setting up SPI communication on the Raspberry Pi.  
 
 
 **HARDWARE modules:**
