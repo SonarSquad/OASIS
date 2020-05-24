@@ -2,6 +2,7 @@
 Project folder for code, circuit schematics and design of the OASIS prototype system
 
 ![Screenshot](full_module_comp.JPG)
+![Screenshot](RX_Main_Echo.png)
 
 
 
