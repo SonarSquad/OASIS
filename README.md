@@ -25,8 +25,8 @@ The full OASIS - A low-cost modular echosounder thesis report should also be red
     
 2. Amplify returning echo with LNA.  
     
-3. Sample returning echo, (switch not developed yet - two transducers used while testing). 
-    - Receive and sample incomming returning echo. Sampling rate = 1.7 Msps.  
+3. Sample returning echo, (switch not developed yet - two transducers used while testing, one for transmit and one for receive). 
+    - Receive and sample incomming returning echo. Sampling @ 1.7 Msps.  
 
 4. Plotting and light processing of received signal.
     - Plot: FFT. 
@@ -37,7 +37,7 @@ ________________________________________________________________________________
 **CONTACT:** 
 - Martin Ericsson - tlf: 92649342, email: martincse94@gmail.com 
 - Tor K. Gjerde - tlf: 46934462, email: torgjerde.nor@gmail.com
-- Torbjørn Willson: tlf: 46810798, email: torbjorw@ntnu.no
+- Torbjørn Willson - tlf: 46810798, email: torbjorw@ntnu.no
 - Einar Avdem - tlf: 98813120, email: einarav@stud.ntnu.no 
 
 
