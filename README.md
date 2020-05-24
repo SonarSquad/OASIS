@@ -2,6 +2,12 @@
 Contains the complete code, circuit schematics and design of the OASIS prototype system.
 The full OASIS - A low-cost modular echosounder thesis report should also be red for a better understanding if further development of the system are to be investigated.  
 
+
+**CONTENT:**
+- Working OASIS python script for Raspberry pi 4 (4GB). 
+- MCU C code for wave generation on the ATmega4809. 
+
+
 **HARDWARE modules:**
 - LNA board - Low noise amplifier. (designed and tested)
 - MCU board - ATmega4809 Full-bridge module. (designed and tested)
@@ -22,9 +28,4 @@ The full OASIS - A low-cost modular echosounder thesis report should also be red
     - FFT: Frequency
     - Plotting: Time vs. voltage 
 
-
-**CONTENT:**
-- Working OASIS python script for Raspberry pi 4 (4GB). 
-- MCU C code for wave generation on the ATmega4809. 
-- 
 
