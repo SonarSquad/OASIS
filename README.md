@@ -1,4 +1,4 @@
-# oasis-python
+# OASIS
 Project folder for code, circuit schematics and design of the OASIS prototype system
 
 ![Screenshot](full_module_comp.JPG)
